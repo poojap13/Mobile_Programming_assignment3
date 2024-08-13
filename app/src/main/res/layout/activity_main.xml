@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_img"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/menuTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Meal Planner App\nHelping you to plan the perfect meal!"
+        android:textSize="20sp"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnBreakfast"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/btnBreakfast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:backgroundTint="@color/button_color"
+        android:text="Plan Breakfast"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menuTextView"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <Button
+        android:id="@+id/btnLunch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Plan Lunch"
+        android:textColor="@color/text_color"
+        android:backgroundTint="@color/button_color"
+        app:layout_constraintTop_toBottomOf="@id/btnBreakfast"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.7"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnDinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Plan Dinner"
+        android:textColor="@color/text_color"
+        android:backgroundTint="@color/button_color"
+        app:layout_constraintTop_toBottomOf="@id/btnLunch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.7"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnBrunch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Plan Brunch"
+        android:textColor="@color/text_color"
+        android:backgroundTint="@color/button_color"
+        app:layout_constraintTop_toBottomOf="@id/btnDinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.7"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

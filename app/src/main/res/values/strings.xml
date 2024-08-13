@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MealPlannerApp</string>
+    <string-array name="lunch_options">
+        <item>Sandwich</item>
+        <item>Salad</item>
+        <item>Pasta</item>
+    </string-array>
+    <string-array name="dinner_options">
+        <item>Pizza</item>
+        <item>Burger</item>
+        <item>Steak</item>
+    </string-array>
+    <string-array name="brunch_options">
+        <item>Pancakes</item>
+        <item>Waffles</item>
+        <item>Omelette</item>
+    </string-array>
+</resources>
