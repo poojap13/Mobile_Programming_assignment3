@@ -1,7 +1,7 @@
 package com.example.ass3
 
+import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -14,10 +14,10 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            // Permission granted, show notification
+            // Permission granted
             Toast.makeText(this, "Notification permission granted", Toast.LENGTH_SHORT).show()
         } else {
-            // Permission denied, handle accordingly
+            // Permission denied
             Toast.makeText(this, "Notification permission denied. Notifications will not be shown.", Toast.LENGTH_LONG).show()
         }
     }
@@ -26,14 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-            // Show rationale and request permission
-            notificationPermissionRequest.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-        } else {
-            // Request permission directly
-            notificationPermissionRequest.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-        }
+        // Request notification permission
+        notificationPermissionRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
 
+        // Set up buttons and their click listeners
         val breakfastButton: Button = findViewById(R.id.btnBreakfast)
         val lunchButton: Button = findViewById(R.id.btnLunch)
         val dinnerButton: Button = findViewById(R.id.btnDinner)

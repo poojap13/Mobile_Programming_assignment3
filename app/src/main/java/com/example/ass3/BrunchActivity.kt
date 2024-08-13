@@ -1,34 +1,30 @@
 package com.example.ass3
 
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.TimePickerDialog
-import android.content.Intent
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import java.util.*
-
 class BrunchActivity : AppCompatActivity() {
-
-    private lateinit var dateEditText: EditText
-    private lateinit var timeEditText: EditText
-    private lateinit var mealSpinner: Spinner
-    private lateinit var saveButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brunch)
 
-        // Initialize views
-        dateEditText = findViewById(R.id.date_edit_text)
-        timeEditText = findViewById(R.id.time_edit_text)
-        mealSpinner = findViewById(R.id.meal_spinner)
-        saveButton = findViewById(R.id.btnSaveMeal)
+        val mealSpinner: Spinner = findViewById(R.id.meal_spinner)
+        val dateEditText: EditText = findViewById(R.id.date_edit_text)
+        val timeEditText: EditText = findViewById(R.id.time_edit_text)
+        val saveMealButton: Button = findViewById(R.id.btnSaveMeal)
 
-        // Date picker
         dateEditText.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -61,24 +57,33 @@ class BrunchActivity : AppCompatActivity() {
             timePickerDialog.show()
         }
 
-        // Save button
-        saveButton.setOnClickListener {
-            val meal = mealSpinner.selectedItem.toString()
-            val date = dateEditText.text.toString()
-            val time = timeEditText.text.toString()
+        saveMealButton.setOnClickListener {
+            val selectedMeal = mealSpinner.selectedItem.toString()
+            val selectedDate = dateEditText.text.toString()
+            val selectedTime = timeEditText.text.toString()
 
-            if (meal.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
-                // Create intent to pass data to MealNotificationActivity
-                val intent = Intent(this, MealNotificationActivity::class.java).apply {
-                    putExtra("MEAL_TYPE", "Brunch")
-                    putExtra("MEAL_NAME", meal)
-                    putExtra("DATE", date)
-                    putExtra("TIME", time)
-                }
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-            }
+            // Send notification
+
+            sendNotification(selectedMeal, selectedDate, selectedTime)
         }
+    }
+
+    private fun sendNotification(meal: String, date: String, time: String) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "meal_planner_channel"
+        val channelName = "Meal Planner Notifications"
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("Meal Planned")
+            .setContentText("Your $meal meal is planned for $date at $time.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        notificationManager.notify(1, notificationBuilder.build())
     }
 }

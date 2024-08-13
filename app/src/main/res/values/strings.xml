@@ -1,18 +1,31 @@
 <resources>
-    <string name="app_name">MealPlannerApp</string>
+    <!-- Example arrays, make sure they are unique -->
+    <string-array name="breakfast_options">
+        <item>Pancakes</item>
+        <item>Omelette</item>
+        <item>Granola</item>
+        <item>Smoothie</item>
+        <item>Bagel</item>
+    </string-array>
     <string-array name="lunch_options">
         <item>Sandwich</item>
         <item>Salad</item>
+        <item>Sushi</item>
         <item>Pasta</item>
+        <item>Wrap</item>
     </string-array>
     <string-array name="dinner_options">
+        <item>Steak</item>
         <item>Pizza</item>
         <item>Burger</item>
-        <item>Steak</item>
+        <item>Soup</item>
+        <item>Stir-fry</item>
     </string-array>
     <string-array name="brunch_options">
-        <item>Pancakes</item>
+        <item>Quiche</item>
         <item>Waffles</item>
-        <item>Omelette</item>
+        <item>Avocado Toast</item>
+        <item>Frittata</item>
+        <item>French Toast</item>
     </string-array>
 </resources>
