@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
@@ -65,6 +66,14 @@ class BrunchActivity : AppCompatActivity() {
             // Send notification
 
             sendNotification(selectedMeal, selectedDate, selectedTime)
+
+
+            // Start the MealSummaryActivity and pass the meal details
+            val intent = Intent(this, MealSummaryActivity::class.java)
+            intent.putExtra("MEAL_TYPE", selectedMeal)
+            intent.putExtra("MEAL_DATE", selectedDate)
+            intent.putExtra("MEAL_TIME", selectedTime)
+            startActivity(intent)
         }
     }
 

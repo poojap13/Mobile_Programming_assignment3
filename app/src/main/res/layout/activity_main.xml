@@ -8,27 +8,41 @@
     android:background="@drawable/bg_img"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/menuTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Meal Planner App\nHelping you to plan the perfect meal!"
-        android:textSize="20sp"
-        android:textColor="@color/text_color"
-        android:textStyle="bold"
-        android:textAlignment="center"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <TextView
+        android:id="@+id/menuTextView"
+        android:layout_width="358dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="100dp"
+        android:padding="16dp"
+        android:text="Welcome to Meal Planner App\nHelping you to plan the perfect meal!"
+        android:textAlignment="center"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnBreakfast"
-        app:layout_constraintVertical_chainStyle="spread"
-        android:padding="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
         android:id="@+id/btnBreakfast"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="72dp"
         android:backgroundTint="@color/button_color"
         android:text="Plan Breakfast"
         android:textColor="@color/text_color"

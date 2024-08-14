@@ -5,36 +5,57 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import java.util.*
 
 class BreakfastActivity : AppCompatActivity() {
 
-    private lateinit var dateEditText: EditText
-    private lateinit var timeEditText: EditText
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_breakfast)
 
         val mealSpinner: Spinner = findViewById(R.id.meal_spinner)
-        dateEditText = findViewById(R.id.date_edit_text)
-        timeEditText = findViewById(R.id.time_edit_text)
+        val dateEditText: EditText = findViewById(R.id.date_edit_text)
+        val timeEditText: EditText = findViewById(R.id.time_edit_text)
         val saveMealButton: Button = findViewById(R.id.btnSaveMeal)
 
         dateEditText.setOnClickListener {
-            showDatePicker()
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { _, selectedYear, selectedMonth, selectedDay ->
+                    dateEditText.setText("${selectedDay}/${selectedMonth + 1}/${selectedYear}")
+                },
+                year, month, day
+            )
+            datePickerDialog.show()
         }
 
+        // Time picker
         timeEditText.setOnClickListener {
-            showTimePicker()
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                this,
+                { _, selectedHour, selectedMinute ->
+                    timeEditText.setText(String.format("%02d:%02d", selectedHour, selectedMinute))
+                },
+                hour, minute, true
+            )
+            timePickerDialog.show()
         }
 
         saveMealButton.setOnClickListener {
@@ -44,32 +65,14 @@ class BreakfastActivity : AppCompatActivity() {
 
             // Send notification
             sendNotification(selectedMeal, selectedDate, selectedTime)
+
+            // Start the MealSummaryActivity and pass the meal details
+            val intent = Intent(this, MealSummaryActivity::class.java)
+            intent.putExtra("MEAL_TYPE", selectedMeal)
+            intent.putExtra("MEAL_DATE", selectedDate)
+            intent.putExtra("MEAL_TIME", selectedTime)
+            startActivity(intent)
         }
-    }
-
-    private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val date = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-            dateEditText.setText(date)
-        }, year, month, day)
-        datePickerDialog.show()
-    }
-
-    private fun showTimePicker() {
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
-
-        val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
-            val time = String.format("%02d:%02d", selectedHour, selectedMinute)
-            timeEditText.setText(time)
-        }, hour, minute, true)
-        timePickerDialog.show()
     }
 
     private fun sendNotification(meal: String, date: String, time: String) {

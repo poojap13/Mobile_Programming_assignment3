@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".BreakfastActivity" />
         <activity android:name=".MealNotificationActivity"/>
+        <activity android:name=".MealSummaryActivity" />
         <activity android:name=".LunchActivity" />
         <activity android:name=".DinnerActivity" />
         <activity android:name=".BrunchActivity" />

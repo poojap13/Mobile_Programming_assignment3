@@ -5,15 +5,16 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import java.util.*
+
 class LunchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +63,15 @@ class LunchActivity : AppCompatActivity() {
             val selectedDate = dateEditText.text.toString()
             val selectedTime = timeEditText.text.toString()
 
+            // Send notification
             sendNotification(selectedMeal, selectedDate, selectedTime)
+
+            // Start the MealSummaryActivity and pass the meal details
+            val intent = Intent(this, MealSummaryActivity::class.java)
+            intent.putExtra("MEAL_TYPE", selectedMeal)
+            intent.putExtra("MEAL_DATE", selectedDate)
+            intent.putExtra("MEAL_TIME", selectedTime)
+            startActivity(intent)
         }
     }
 
@@ -82,6 +91,6 @@ class LunchActivity : AppCompatActivity() {
             .setContentText("Your $meal meal is planned for $date at $time.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        notificationManager.notify(1, notificationBuilder.build())
+        notificationManager.notify(2, notificationBuilder.build())
     }
 }
